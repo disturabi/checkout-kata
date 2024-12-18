@@ -43,12 +43,15 @@
 
             foreach (var item in _items)
             {
-                var itemQuantity = _skus.Count(s => s == item.Sku);
+                var itemQuantity = _skus.Count(sku => sku == item.Sku);
 
                 if (item.DiscountQuanity.HasValue && item.DiscountPrice.HasValue)
                 {
                     if (itemQuantity >= item.DiscountQuanity.Value)
                     {
+                        // Within the string of SKUs, we need to determine qualifications of discounts
+                        // Given the example string: AAAABB where 3xA and 2xB qualify for discounts
+                        // We need to find the amounts for AAA A BB respectively
                         var discountQuantity = itemQuantity / item.DiscountQuanity.Value;
                         var nonDiscountQuantity = itemQuantity % item.DiscountQuanity.Value;
 
