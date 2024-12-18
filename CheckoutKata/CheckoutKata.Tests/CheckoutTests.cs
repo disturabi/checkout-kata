@@ -75,7 +75,7 @@ namespace CheckoutKata.Tests
 
         [TestCase("AAABBCD", 210)]
         [TestCase("AAAAAA", 260)]
-        [TestCase("BBBBAAA", 305)]
+        [TestCase("BBBBAAA", 220)]
         public void GetTotalPrice_MultipleOffer(string scanString, int expectedTotal)
         {
             _checkout.Scan(scanString);
