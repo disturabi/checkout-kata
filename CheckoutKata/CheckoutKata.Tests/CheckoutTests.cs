@@ -54,25 +54,34 @@ namespace CheckoutKata.Tests
 
         [TestCase("AAA", 130)]
         [TestCase("AAABB", 175)]
-        public void GetTotalPrice_Offer(string scanString, int total)
+        public void GetTotalPrice_Offer(string scanString, int expectedTotal)
         {
-            Assert.Fail();
+            _checkout.Scan(scanString);
+
+            var total = _checkout.GetTotalPrice();
+            Assert.That(total == expectedTotal);
         }
 
         [TestCase("AAAB", 160)]
         [TestCase("ABB", 95)]
         [TestCase("AAABBCD", 210)]
-        public void GetTotalPrice_OfferPlusNoOffer(string scanString, int total)
+        public void GetTotalPrice_OfferPlusNoOffer(string scanString, int expectedTotal)
         {
-            Assert.Fail();
+            _checkout.Scan(scanString);
+
+            var total = _checkout.GetTotalPrice();
+            Assert.That(total == expectedTotal);
         }
 
         [TestCase("AAABBCD", 210)]
         [TestCase("AAAAAA", 260)]
         [TestCase("BBBBAAA", 305)]
-        public void GetTotalPrice_MultipleOffer(string scanString, int total)
+        public void GetTotalPrice_MultipleOffer(string scanString, int expectedTotal)
         {
-            Assert.Fail();
+            _checkout.Scan(scanString);
+
+            var total = _checkout.GetTotalPrice();
+            Assert.That(total == expectedTotal);
         }
     }
 }
