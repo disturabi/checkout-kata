@@ -44,9 +44,12 @@ namespace CheckoutKata.Tests
         [TestCase("A", 50)]
         [TestCase("AB", 80)]
         [TestCase("ABCD", 115)]
-        public void GetTotalPrice_NoOffer(string scanString, int total)
+        public void GetTotalPrice_NoOffer(string scanString, int expectedTotal)
         {
-            Assert.Fail();
+            _checkout.Scan(scanString);
+
+            var total = _checkout.GetTotalPrice();
+            Assert.That(total == expectedTotal);
         }
 
         [TestCase("AAA", 130)]

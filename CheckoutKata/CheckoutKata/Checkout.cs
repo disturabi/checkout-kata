@@ -36,7 +36,35 @@
 
         public int GetTotalPrice()
         {
-            throw new NotImplementedException();
+            var discountTotal = 0;
+            var nonDiscountTotal = 0;
+
+            var total = 0;
+
+            foreach (var item in _items)
+            {
+                var itemQuantity = _skus.Count(s => s == item.Sku);
+
+                if (item.DiscountQuanity.HasValue && item.DiscountPrice.HasValue)
+                {
+                    if (itemQuantity >= item.DiscountQuanity.Value)
+                    {
+                        var discountQuantity = itemQuantity / item.DiscountQuanity.Value;
+                        var nonDiscountQuantity = itemQuantity % item.DiscountQuanity.Value;
+
+                        discountTotal = (int)(discountQuantity * item.DiscountPrice);
+                        nonDiscountTotal = nonDiscountQuantity * item.UnitPrice;
+
+                        total += discountTotal + nonDiscountTotal;                    
+                    }
+                    else
+                    {
+                        total += itemQuantity * item.UnitPrice;
+                    }
+                }
+            }
+
+            return total;
         }
     }
 }
