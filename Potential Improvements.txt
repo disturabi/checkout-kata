@@ -1,0 +1,7 @@
+I think there could be some additional validation on all of the prices that are fed into an item. In this particular example, it is static data applied at runtime in the tests. If it were data which was retrieved from some kind of data store, I think these values would need full validation to ensure that they are positive integer values.
+
+The same logic applies to SKU. SKU needs checking so that it is a character between A-Z only. In a more real life example, the SKU would probably be a much longer identifier or something like a GUID.
+
+I stuck with integer values for any price properties but they should be floating point to account for pounds + pence/dollars + cents real life currency amounts.
+
+Looking back on the discount calculation, it may be possible to refactor this code so that I don't have total += itemQuantity * item.UnitPrice; written twice. It is written this way so that in the string AAAAAAABBCD, it will calculate the AAA AAA BB discounts and the remainder A but the CD will pass through the outer else as it doesn't have any configured discount. 
