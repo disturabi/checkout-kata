@@ -2,26 +2,43 @@ namespace CheckoutKata.Tests
 {
     public class CheckoutTests
     {
-        private List<Item> _items;
+        private Checkout _checkout;
 
         [SetUp]
         public void Setup()
         {
-            _items = new List<Item> 
+            _checkout = new Checkout(new List<Item>
             {
-                new Item { Sku = "A", UnitPrice = 50, DiscountQuanity = 3, DiscountPrice = 130 },
-                new Item { Sku = "B", UnitPrice = 30, DiscountQuanity = 2, DiscountPrice = 45 },
-                new Item { Sku = "C", UnitPrice = 20 },
-                new Item { Sku = "D", UnitPrice = 15 },
-            };
+                new Item { Sku = 'A', UnitPrice = 50, DiscountQuanity = 3, DiscountPrice = 130 },
+                new Item { Sku = 'B', UnitPrice = 30, DiscountQuanity = 2, DiscountPrice = 45 },
+                new Item { Sku = 'C', UnitPrice = 20 },
+                new Item { Sku = 'D', UnitPrice = 15 },
+            });
         }
 
-        [TestCase("", 0)]
-        [TestCase("Z", 0)]
-        [TestCase("A", 50)]
-        public void Scan_Sku(string scanString, int total)
+        
+        [TestCase("A")]
+        public void Scan_Sku(string scanString)
         {
-            Assert.Fail();
+            _checkout.Scan(scanString);
+        }
+
+        [TestCase("Z")]
+        public void Scan_Sku_ThrowsKeyNotFoundException(string scanString)
+        {
+            var expectedMessage = "The SKU 'Z' does not exist";
+            var ex = Assert.Throws<KeyNotFoundException>(() => _checkout.Scan(scanString));
+
+            Assert.IsTrue(ex.Message == expectedMessage);
+        }
+
+        [TestCase("")]
+        public void Scan_Sku_ThrowsArgumentNullException(string scanString)
+        {
+            var expectedMessage = "List of SKUs cannot be null or empty";
+            var ex = Assert.Throws<ArgumentNullException>(() => _checkout.Scan(scanString));
+
+            Assert.IsTrue(ex.ParamName == expectedMessage);
         }
 
         [TestCase("A", 50)]
