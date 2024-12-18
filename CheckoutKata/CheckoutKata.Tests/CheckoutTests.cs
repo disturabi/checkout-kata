@@ -2,9 +2,18 @@ namespace CheckoutKata.Tests
 {
     public class CheckoutTests
     {
+        private List<Item> _items;
+
         [SetUp]
         public void Setup()
         {
+            _items = new List<Item> 
+            {
+                new Item { Sku = "A", UnitPrice = 50, DiscountQuanity = 3, DiscountPrice = 130 },
+                new Item { Sku = "B", UnitPrice = 30, DiscountQuanity = 2, DiscountPrice = 45 },
+                new Item { Sku = "C", UnitPrice = 20 },
+                new Item { Sku = "D", UnitPrice = 15 },
+            };
         }
 
         [TestCase("", 0)]
