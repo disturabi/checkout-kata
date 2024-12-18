@@ -62,6 +62,10 @@
                         total += itemQuantity * item.UnitPrice;
                     }
                 }
+                else
+                {
+                    total += itemQuantity * item.UnitPrice;
+                }
             }
 
             return total;
